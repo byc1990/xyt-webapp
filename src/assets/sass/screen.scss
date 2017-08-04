@@ -1,0 +1,47 @@
+@import "~font-awesome/scss/font-awesome";
+
+@import "../bootstrap/variables";
+@import "../bootstrap/mixins";
+@import "../bootstrap/tables";
+
+@import "lib/mixin";
+@import "lib/spacing";
+@import "lib/color";
+@import "lib/useful_class";
+@import "lib/rounded";
+@import "lib/extra_reset";
+@import "lib/ie_warning";
+
+.display-flex{
+  display: flex;
+}
+
+.flex1{
+  flex: 1;
+}
+
+.mint-spinner-snake{
+  margin:0 auto;
+}
+.multiselect--disabled{
+  opacity:.8 !important;
+}
+.filter_bar{
+  position: fixed;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  z-index: 1;
+}
+.sidebar_menu{
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  right: -250px;
+  top: 0;
+  background: #fff;
+  z-index: 998;
+  &.active{
+    right: 0;
+  }
+}

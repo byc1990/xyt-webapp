@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title></title>
+  <style>
+    html{height:100%}
+    body{height:100%;margin:0px;padding:0px}
+    #allmap{height:100%}
+  </style>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KMVMX2ByWjGDolZ1M8SYTmHQ"></script>
+  <script src="https://cdn1.lncld.net/static/js/3.0.2/av-min.js"></script>
+</head>
+<body>
+  <!--<input type="text" placeholder="输入关键字" onblur="search(event)" style="display: none;">-->
+  <div id="allmap"></div>
+  <div id="r-result"></div>
+
+  <script type="text/javascript">
+    const APP_ID = 'OS0xhC73XUcUgL4aFtX40SbV-gzGzoHsz'
+    const APP_KEY = 'HtkKwqncPMW8hHaNGCkfFs3U'
+    AV.init({
+      appId: APP_ID,
+      appKey: APP_KEY
+    })
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(120.690769, 31.335259);
+    map.centerAndZoom(point, 12);
+
+    var geolocation = new BMap.Geolocation()
+    geolocation.getCurrentPosition(function(r) {
+      if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+        var mk = new BMap.Marker(r.point)
+        map.addOverlay(mk)
+        map.panTo(r.point)
+        console.log('您的位置：' + r.point.lng + ',' + r.point.lat)
+        var local = new BMap.LocalSearch(map, {
+          renderOptions: {
+            map: map,
+            panel: "r-result",
+            autoViewport: true,
+          },
+        })
+      }
+      else {
+        alert('failed'+this.getStatus())
+      }
+    },{ enableHighAccuracy: true })
+    
+    new AV.Query('JobsTest')
+      .descending('createdAt')
+      .find()
+      .then((list) => {
+        if (list) {
+          list.forEach((item) => {
+            if (item._serverData.latitude) {
+              var point = new BMap.Point(item._serverData.longitude, item._serverData.latitude)
+              var label = new BMap.Label(item._serverData.title)
+              var mk = new BMap.Marker(point)
+              map.addOverlay(mk)
+              mk.setLabel(label)
+              mk.setTitle(item.id)
+              mk.addEventListener('click', (e) => {
+                const id = e.currentTarget.z.title
+                window.location.href = `http://www.baiyuchuan.com/demo/xyt/xyt-webapp/#/detail/${id}`
+                
+              })
+            }
+          })
+        }
+      })
+      .catch(console.error)
+    
+    //关于状态码
+    //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+    //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+    //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+    //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+    //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+    //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+    //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+    //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+    //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+  </script>
+</body>
+</html>

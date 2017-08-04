@@ -1,0 +1,194 @@
+{
+  "result":[
+    {
+      "id": 1,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "高级洗碗工",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "高级洗碗工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 2,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "洗碗工",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "杂工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 3,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "搬砖",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "搬砖",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 1,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "洗碗工",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "洗碗工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 2,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "洗碗工",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "杂工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 3,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "搬砖",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "搬砖",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 1,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "洗碗工",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "洗碗工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 2,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "洗碗工",
+      "salary": 10000,
+      "distance": 20,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "杂工",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    },
+    {
+      "id": 3,
+      "enable": true,
+      "address": "广西省昭平县",
+      "salary": 10000,
+      "nature": "私营",
+      "job_name": "搬砖",
+      "salary": 10000,
+      "num": 5,
+      "created_at": 1477448442602,
+      "updated_at": 1483605702585,
+      "starts": 3,
+      "point": {
+        "lng": 133,
+        "lat": 155
+      },
+      "tel": "10086",
+      "img_src": "http://placeholder.qiniudn.com/60x60/3cc51f/ffffff",
+      "title": "搬砖",
+      "desc": "广西昭平县十八号庄园生态农业有限公司。10000元包吃住"
+    }
+  ]
+}
