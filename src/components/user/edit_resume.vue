@@ -1,15 +1,17 @@
 <template>
   <div class="bg-white">
     <div>
-      <x-input title="姓名" v-model="nickName"></x-input>
-      <x-input title="年龄" v-model="age"></x-input>
-      <selector title="性别" :options="genders" v-model="gender"></selector>
-      <datetime title="出生日期" v-model="birthday" value-text-align="left"></datetime>
-      <x-address title="现居地" v-model="addressValue" raw-value :list="addressData" value-text-align="left"></x-address>
+      <x-input placeholder="请输入" title="姓名" v-model="nickName"></x-input>
+      <x-input placeholder="请输入" title="年龄" v-model="age"></x-input>
+      <selector placeholder="请输入" title="性别" :options="genders" v-model="gender"></selector>
+      <datetime placeholder="请输入" title="出生日期" v-model="birthday" value-text-align="left"></datetime>
+      <x-address placeholder="请输入" title="现居地" v-model="addressValue" raw-value :list="addressData" value-text-align="left"></x-address>
       <x-input title="联系电话" placeholder="请输入" v-model="mobilePhoneNumber"></x-input>
-      <x-input title="期望薪资" v-model="salary"></x-input>
+      <x-input placeholder="请输入" title="期望薪资" v-model="salary"></x-input>
   </div>
-    <XButton size="large" type="primary" @click="save">提交</XButton>
+    <div class="p-l-10 p-r-10">
+      <XButton size="large" type="primary" @click.native="save">提交</XButton>
+    </div>
   </div>
 </template>
 <script type="text/babel">
@@ -70,18 +72,24 @@
         user.set('salary', this.salary - 0)
         user.setMobilePhoneNumber(this.mobilePhoneNumber)
         user.save().then((saveRes) => {
-          console.log(1111111, saveRes)
           if (!saveRes.error) {
-            Toast('保存成功!')
+            this.$vux.toast.show({
+              text: '保存成功!',
+              type: 'text',
+            })
             this.$router.push('/user')
           } else {
+            console.log('其他错误')
 //            const instance = Toast(error)
 //            setTimeout(() => {
 //              instance.close()
 //            }, 5000)
           }
-        }, ((error) => {
-          console.log(JSON.stringify(error))
+        }, ((errRes) => {
+          this.$vux.toast.show({
+            type: 'warn',
+            text: errRes.message,
+          })
         }))
       },
     },
