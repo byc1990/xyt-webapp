@@ -4,7 +4,15 @@
     <x-input required title="公司名称" placeholder="请输入" v-model="company"></x-input>
     <!--<x-input required title="选择省份" placeholder="请输入" type="password" v-model="province"></x-input>-->
     <!--<x-input required title="选择城市" placeholder="请输入" type="tel" v-model="city"></x-input>-->
-    <x-address required title="现居地" v-model="addressValue" raw-value :list="addressData" value-text-align="left"></x-address>
+    <x-address
+      required
+      title="所属地区"
+      v-model="addressValue"
+      :raw-value=true
+      :list="addressData"
+      value-text-align="left"
+      :hide-district=true
+    ></x-address>
     <x-input required title="详细地址" placeholder="请输入" v-model="detailAddress"></x-input>
     <x-input required title="岗位要求" placeholder="请输入" v-model="requirement"></x-input>
     <x-input required title="福利待遇" placeholder="请输入" v-model="benefits"></x-input>
@@ -41,7 +49,7 @@
     data() {
       return {
         addressData: ChinaAddressData,
-        addressValue: ['广东省', '深圳市', '南山区'],
+        addressValue: ['广东省', '深圳市'],
         title: '',
         company: '',
         detailAddress: '',
@@ -111,6 +119,7 @@
       onCityChange() {
       },
       save() {
+        console.log(this.addressValue)
         this.$vux.loading.show({
           text: '保存中...',
         })
@@ -134,8 +143,8 @@
             JobObj.set('title', this.title)
             JobObj.set('company', this.company)
             JobObj.set('detailAddress', this.detailAddress)
-            JobObj.set('requirement', this.requirement)
-            JobObj.set('benefits', this.benefits)
+            JobObj.set('requirement', this.requirement.split(';'))
+            JobObj.set('benefits', this.benefits.split(';'))
             JobObj.set('tel', this.tel)
             JobObj.set('salary', this.salary - 0)
             JobObj.set('num', this.num - 0)
@@ -145,6 +154,8 @@
             JobObj.set('desc', this.desc)
             JobObj.set('latitude', this.latitude)
             JobObj.set('longitude', this.longitude)
+            JobObj.set('city', this.addressValue[1])
+            JobObj.set('province', this.addressValue[0])
             JobObj.set('createdBy', userId)
             JobObj.set('nickName', nickName)
             JobObj.save().then((saveRes) => {
@@ -207,3 +218,8 @@
     mixins: [],
   }
 </script>
+<style>
+  .vux-popup-picker-select-box {
+    padding-left: 20px;
+  }
+</style>

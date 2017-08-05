@@ -7,12 +7,24 @@
         <div class='flex2'>{{detail.title}}</div>
       </div>
       <div class='display-flex'>
+        <div class='flex1'>公司名称: </div>
+        <div class='flex2'>{{detail.company}}</div>
+      </div>
+      <div class='display-flex'>
         <div class='flex1'>薪资待遇: </div>
         <div class='flex2'>{{detail.salary}}元</div>
       </div>
       <div class='display-flex'>
         <div class='flex1'>地址: </div>
-        <div class='flex2'>{{detail.address}}</div>
+        <div class='flex2'>{{getAdderssText([detail.province, detail.city])}}</div>
+      </div>
+      <div class='display-flex'>
+        <div class='flex1'>详细地址: </div>
+        <div class='flex2'>{{detail.detailAddress}}</div>
+      </div>
+      <div class='display-flex'>
+        <div class='flex1'>gps 位置: </div>
+        <div class='flex2'>lat: {{detail.latitude}}/lon:{{detail.longitude}}</div>
       </div>
       <div class='display-flex'>
         <div class='flex1'>距离: </div>
@@ -27,24 +39,17 @@
         <div class='flex2'><a href="tel: {detail.tel}">{{detail.tel}}</a></div>
       </div>
       <div class='display-flex'>
-        <div class='flex1'>gps 位置: </div>
-        <div class='flex2'>lat: {{detail.latitude}}/lon:{{detail.longitude}}</div>
-      </div>
-      <div class='display-flex'>
-        <div class='flex1'>详细地址: </div>
-        <div class='flex2'>{{detail.detailAddress}}</div>
-      </div>
-      <div class='display-flex'>
-        <div class='flex1'>公司名称: </div>
-        <div class='flex2'>{{detail.company}}</div>
-      </div>
-      <div class='display-flex'>
         <div class='flex1'>职位要求: </div>
-        <div class='flex2'>{{detail.requirement}}</div>
+        <div class='flex2'>
+          <div v-for="(item, index) in detail.requirement">{{index + 1}}:{{item}}
+          </div>
+        </div>
       </div>
       <div class='display-flex'>
         <div class='flex1'>福利: </div>
-        <div class='flex2'>{{detail.benefits}}</div>
+        <div class='flex2'>
+          <div v-for="(item, index) in detail.benefits">{{index + 1}}:{{item}}</div>
+        </div>
       </div>
       <div class='display-flex'>
         <div class='flex1'>招聘人数: </div>
@@ -62,10 +67,10 @@
         <div class='flex1'>年龄: </div>
         <div class='flex2'>{{detail.age}}岁</div>
       </div>
-      <div class='display-flex'>
-        <div class='flex1'>其他要求: </div>
-        <div class='flex2'>{{detail.other_req}}</div>
-      </div>
+      <!--<div class='display-flex'>-->
+        <!--<div class='flex1'>其他要求: </div>-->
+        <!--<div class='flex2'>{{detail.other_req}}</div>-->
+      <!--</div>-->
       <div class='display-flex'>
         <div class='flex1'>详细介绍: </div>
         <div class='flex2'>{{detail.desc}}</div>
@@ -77,7 +82,7 @@
   </div>
 </template>
 <script type='text/babel'>
-  import { Group, Cell, Panel, Grid, GridItem, GroupTitle, Swiper, XButton } from 'vux'
+  import { Group, Cell, Panel, Grid, GridItem, GroupTitle, Swiper, XButton, Value2nameFilter as value2name, ChinaAddressV3Data } from 'vux'
   import FnMixin from '../../assets/js/fn-mixins'
   import ApiMixin from '../../assets/js/apis-mixins'
   import FiltersMixin from '../../assets/js/filters-mixins'
@@ -114,6 +119,9 @@
         this.$vux.toast.show({
           text: '申请成功',
         })
+      },
+      getAdderssText(value) {
+        return value2name(value, ChinaAddressV3Data)
       },
     },
     created() {
