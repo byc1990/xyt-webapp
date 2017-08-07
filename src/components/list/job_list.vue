@@ -48,7 +48,7 @@
   </div>
 </template>
 <script type="text/babel">
-//  import Jsonp from 'jsonp'
+  import Jsonp from 'jsonp'
   import { Panel, XAddress, ChinaAddressData, Flexbox, FlexboxItem, Divider, Icon, Search } from 'vux'
   import FnMixin from '../../assets/js/fn-mixins'
   import ApiMixin from '../../assets/js/apis-mixins'
@@ -123,62 +123,82 @@
       },
     },
     created() {
-//      const that = this
+      const that = this
       this.$vux.loading.show({
         text: '加载中',
       })
-//      if (sessionStorage.getItem('province') && sessionStorage.getItem('city')) {
-//        that.addressValue = [sessionStorage.getItem('province'), sessionStorage.getItem('city')]
-//      } else {
-//        navigator.geolocation.getCurrentPosition((pos) => {
-//          const lat = pos.coords.latitude.toFixed(6)
-//          const lon = pos.coords.longitude.toFixed(6)
-//          Jsonp(`http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=${lat},${lon}39.983424,116.322987&output=json&pois=1&ak=KMVMX2ByWjGDolZ1M8SYTmHQ`, null, (err, data) => {
-//            if (err) {
-//              console.log(err.message)
-//            } else {
-//              console.log(3333333, data.result.addressComponent.adcode)
-//              const address = data.result.formatted_address
-//              const provinceIdx = address.indexOf('省')
-//              const cityIdx = address.indexOf('市')
-//              const province = address.substring(0, provinceIdx + 1)
-//              const city = address.substring(provinceIdx + 1, cityIdx + 1)
+      if (sessionStorage.getItem('province') && sessionStorage.getItem('city')) {
+        that.addressValue = [sessionStorage.getItem('province'), sessionStorage.getItem('city')]
+      } else {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const lat = pos.coords.latitude.toFixed(6)
+          const lon = pos.coords.longitude.toFixed(6)
+          Jsonp(`http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=${lat},${lon}39.983424,116.322987&output=json&pois=1&ak=KMVMX2ByWjGDolZ1M8SYTmHQ`, null, (err, data) => {
+            if (err) {
+              console.log(err.message)
+            } else {
+              console.log('地区编号', data.result.addressComponent.adcode)
+              const address = data.result.formatted_address
+              const provinceIdx = address.indexOf('省')
+              const cityIdx = address.indexOf('市')
+              const province = address.substring(0, provinceIdx + 1)
+              const city = address.substring(provinceIdx + 1, cityIdx + 1)
 //              if (data.result.addressComponent && data.result.addressComponent.adcode) {
 //                const province = `${data.result.addressComponent.adcode.substring(0, 1)}00000`
 //                const city = `${data.result.addressComponent.adcode.substring(0, 4)}00`
-//                console.log(province, city)
-//                sessionStorage.setItem('province', province)
-//                sessionStorage.setItem('city', city)
-//                that.addressValue = [province, city]
-//                this.$vux.loading.hide()
+              console.log(province, city)
+              sessionStorage.setItem('province', province)
+              sessionStorage.setItem('city', city)
+              that.addressValue = [province, city]
+              this.$vux.loading.hide()
 //              }
-//            }
-//          })
-//        }, (err) => {
-//          this.$vux.toast.show({
-//            text: err,
-//            type: 'warn',
-//          })
-//        })
-//      }
-      this.ApiGetJobs().then((list) => {
-        const arr = []
-        _.forEach(list, (item) => {
-          const obj = {}
-          obj.title = item._serverData.title
-//          obj.src = item._serverData.thumbnail
-          obj.desc = item._serverData.desc
-          obj.url = `/detail/${item.id}`
-          arr.push(obj)
+            }
+          })
+        }, (err) => {
+          this.$vux.toast.show({
+            text: err,
+            type: 'warn',
+          })
+          const query = new AV.Query('JobsTest')
+          query.find().then((list) => {
+            const arr = []
+            _.forEach(list, (item) => {
+              const obj = {}
+              obj.title = item._serverData.title
+              obj.desc = item._serverData.desc
+              obj.url = `/detail/${item.id}`
+              arr.push(obj)
+            })
+            this.list = arr
+            this.$vux.loading.hide()
+          }, (error) => {
+            this.$vux.toast.show({
+              text: error.message,
+              type: 'warn',
+            })
+          })
         })
-        this.list = arr
-        this.$vux.loading.hide()
-      })
+      }
+//      this.ApiGetJobs().then((list) => {
+//        const arr = []
+//        _.forEach(list, (item) => {
+//          const obj = {}
+//          obj.title = item._serverData.title
+//          obj.desc = item._serverData.desc
+//          obj.url = `/detail/${item.id}`
+//          arr.push(obj)
+//        })
+//        this.list = arr
+//        this.$vux.loading.hide()
+//      })
     },
     watch: {
       addressValue(newV) {
         console.log(newV)
         if (newV) {
+          if (!parseInt(newV[0], 10) || !parseInt(newV[1], 10)) {
+            return
+          }
           this.$vux.loading.show({
             text: '加载中',
           })
@@ -192,7 +212,6 @@
             _.forEach(list, (item) => {
               const obj = {}
               obj.title = item._serverData.title
-//            obj.src = item._serverData.thumbnail
               obj.desc = item._serverData.desc
               obj.url = `/detail/${item.id}`
               arr.push(obj)

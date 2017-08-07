@@ -15,7 +15,7 @@
         <!--<cell :title="'发布信息'" link="/add_job"></cell>-->
         <cell :title="'我的发布'" link="/release_list"></cell>
         <!--<cell :title="'我的申请'" link="/apply_list"></cell>-->
-        <cell :title="'分享'" @click.native="showActionsheet" link="/user"></cell>
+        <!--<cell :title="'分享'" @click.native="showActionsheet" link="/user"></cell>-->
       </group>
       <div class="p-l-20 p-r-20">
         <x-button type="primary" class="m-t-20 " @click.native="logout">退出登录</x-button>

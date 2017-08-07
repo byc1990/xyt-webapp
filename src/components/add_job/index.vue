@@ -209,18 +209,36 @@
       const that = this
       const currentUser = AV.User.current()
       if (currentUser) {
-        const options = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
+        if (sessionStorage.getItem('province') && sessionStorage.getItem('city')) {
+          that.addressValue = [sessionStorage.getItem('province'), sessionStorage.getItem('city')]
+        } else {
+          navigator.geolocation.getCurrentPosition((pos) => {
+            const lat = pos.coords.latitude.toFixed(6)
+            const lon = pos.coords.longitude.toFixed(6)
+            Jsonp(`http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=${lat},${lon}39.983424,116.322987&output=json&pois=1&ak=KMVMX2ByWjGDolZ1M8SYTmHQ`, null, (err, data) => {
+              if (err) {
+                console.log(err.message)
+              } else {
+                console.log('地区编号', data.result.addressComponent.adcode)
+                const address = data.result.formatted_address
+                const provinceIdx = address.indexOf('省')
+                const cityIdx = address.indexOf('市')
+                const province = address.substring(0, provinceIdx + 1)
+                const city = address.substring(provinceIdx + 1, cityIdx + 1)
+                console.log(province, city)
+                sessionStorage.setItem('province', province)
+                sessionStorage.setItem('city', city)
+                that.addressValue = [province, city]
+                this.$vux.loading.hide()
+              }
+            })
+          }, () => {
+            this.$vux.toast.show({
+              text: '获取位置信息失败, 请手动选择',
+              type: 'warn',
+            })
+          })
         }
-        navigator.geolocation.getCurrentPosition((pos) => {
-          console.log(pos)
-          this.latitude = pos.coords.latitude
-          this.longitude = pos.coords.longitude
-        }, (err) => {
-          console.log(err)
-        }, options)
       } else {
         this.$vux.alert.show({
           title: '提示',
