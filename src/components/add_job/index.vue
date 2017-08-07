@@ -42,7 +42,7 @@
       v-model="desc"
       autosize
     ></x-textarea>
-    <div class="p-l-10 p-r-10 m-b-10">
+    <div class="p-l-10 p-r-10 p-b-20">
       <XButton type="default" size="large" @click.native="save">提交</XButton>
     </div>
     

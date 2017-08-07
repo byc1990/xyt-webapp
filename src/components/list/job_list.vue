@@ -154,9 +154,9 @@
 //              }
             }
           })
-        }, (err) => {
+        }, () => {
           this.$vux.toast.show({
-            text: err,
+            text: '获取位置信息失败',
             type: 'warn',
           })
           const query = new AV.Query('JobsTest')

@@ -37,7 +37,7 @@
       <div class='display-flex'>
         <div class='flex1'>联系电话: </div>
         <div class='flex2'>
-          <a v-if="isLogined" href="tel: {detail.tel}">{{detail.tel}}</a>
+          <a v-if="isLogined" :href="'tel:' + detail.tel">{{detail.tel}}</a>
           <router-link v-else to="/login">登陆后查看</router-link>
         </div>
       </div>
