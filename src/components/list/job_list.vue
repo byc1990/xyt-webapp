@@ -1,12 +1,32 @@
 <template>
   <div>
-    <x-address
-      title="选择地区"
-      v-model="addressValue"
-      raw-value
-      :list="addressData"
-      value-text-align="left"
-    ></x-address>
+    <flexbox>
+      <flexbox-item :span="10" v-if="!showSearchInput">
+        <x-address
+          title="选择地区"
+          v-model="addressValue"
+          raw-value
+          :list="addressData"
+          value-text-align="left"
+        ></x-address>
+      </flexbox-item>
+      <flexbox-item :span="2" v-if="!showSearchInput">
+        <icon type="search" @click.native="showSearchInput = true"></icon>
+      </flexbox-item>
+      <flexbox-item :span="12">
+        <transition name="fade-fast">
+          <search
+            v-if="showSearchInput"
+            v-model="keyText"
+            position="absolute"
+            auto-scroll-to-top top="46px"
+            @on-cancel="showSearchInput = false"
+            @on-submit="doSearch"
+            ref="search"></search>
+        </transition>
+      </flexbox-item>
+    </flexbox>
+    
     <!--<scroller lock-x height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200">-->
       <!--<div class="box2">-->
         <!--<flexbox v-for="(item, index) in list">-->
@@ -29,7 +49,7 @@
 </template>
 <script type="text/babel">
 //  import Jsonp from 'jsonp'
-  import { Panel, XAddress, ChinaAddressData, Flexbox, FlexboxItem, Divider } from 'vux'
+  import { Panel, XAddress, ChinaAddressData, Flexbox, FlexboxItem, Divider, Icon, Search } from 'vux'
   import FnMixin from '../../assets/js/fn-mixins'
   import ApiMixin from '../../assets/js/apis-mixins'
 
@@ -42,6 +62,8 @@
         allLoaded: false,
         onFetching: false,
         scrollTop: 0,
+        keyText: '',
+        showSearchInput: false,
       }
     },
     methods: {
@@ -70,6 +92,34 @@
       onClickButton() {
       },
       onShadowChange() {
+      },
+      doSearch() {
+        this.$refs.search.setBlur()
+        if (this.keyText) {
+          this.$vux.loading.show({
+            text: '加载中',
+          })
+          const query = new AV.Query('JobsTest')
+          query.contains('title', this.keyText)
+          query.find().then((list) => {
+            const arr = []
+            _.forEach(list, (item) => {
+              const obj = {}
+              obj.title = item._serverData.title
+//            obj.src = item._serverData.thumbnail
+              obj.desc = item._serverData.desc
+              obj.url = `/detail/${item.id}`
+              arr.push(obj)
+            })
+            this.list = arr
+            this.$vux.loading.hide()
+          }, (error) => {
+            this.$vux.toast.show({
+              text: error.message,
+              type: 'warn',
+            })
+          })
+        }
       },
     },
     created() {
@@ -164,6 +214,8 @@
       Flexbox,
       FlexboxItem,
       Divider,
+      Icon,
+      Search,
     },
     mixins: [FnMixin, ApiMixin],
   }

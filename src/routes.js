@@ -2,7 +2,7 @@ export default [
   {
     path: '/',
     component(resolve) {
-      require(['./components/index.vue'], resolve)
+      require(['./components/list/job_list.vue'], resolve)
     },
     name: '',
   },
