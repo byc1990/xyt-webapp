@@ -1,17 +1,17 @@
 <template>
   <div>
-    <x-input title="用户名" placeholder="请输入用户名" require v-model="username"></x-input>
-    <x-input title="真实姓名" placeholder="请输入真实姓名" require v-model="nickName"></x-input>
-    <x-input title="联系电话" placeholder="请输入联系电话" type="tel" v-model="mobilePhoneNumber"></x-input>
-    <x-input title="年龄" placeholder="请输入年龄" type="number" v-model="age"></x-input>
-    <x-input title="密码" placeholder="请输入密码" type="password" v-model="password"></x-input>
-    <x-input title="确认密码" placeholder="再次确认密码" type="password" v-model="password"></x-input>
-    <radio
-      title="性别"
-      v-model="gender"
-      :options=genders>
-    </radio>
-    <XButton size="large" type="primary" @click="save">提交</XButton>
+    <x-input title="用户名" placeholder="请输入用户名" required v-model="username"></x-input>
+    <!--<x-input title="真实姓名" placeholder="请输入真实姓名" require v-model="nickName"></x-input>-->
+    <x-input title="联系电话" placeholder="请输入联系电话" required type="tel" v-model="mobilePhoneNumber"></x-input>
+    <!--<x-input title="年龄" placeholder="请输入年龄" type="number"  v-model="age"></x-input>-->
+    <x-input title="密码" placeholder="请输入密码" required type="password" v-model="password"></x-input>
+    <x-input title="确认密码" placeholder="再次确认密码" required type="password" v-model="checkPassword"></x-input>
+    <!--<radio-->
+      <!--title="性别"-->
+      <!--v-model="gender"-->
+      <!--:options=genders>-->
+    <!--</radio>-->
+    <XButton size="large" type="primary" @click.native="save">提交</XButton>
   </div>
 </template>
 <script type="text/babel">
@@ -27,6 +27,7 @@
         mobilePhoneNumber: '',
         age: 30,
         password: '',
+        checkPassword: '',
         gender: '0',
         genders: [
           {
@@ -42,6 +43,13 @@
     },
     methods: {
       save() {
+        if (this.username === '' || this.mobilePhoneNumber === '' || this.password === '') {
+          this.$vux.toast.show({
+            text: '请填写完整信息',
+            type: 'warn',
+          })
+          return
+        }
         const user = new AV.User()
         user.setUsername(this.username)
         user.setPassword(this.password)
@@ -62,6 +70,10 @@
           }
         }, ((error) => {
           console.log(JSON.stringify(error))
+          this.$vux.toast.show({
+            text: error.message,
+            type: 'warn',
+          })
         }))
       },
     },
@@ -79,5 +91,8 @@
   .bm-view {
     width: 100vw;
     height: 80vh;
+  }
+  .weui-label {
+    width: 5em !important;
   }
 </style>

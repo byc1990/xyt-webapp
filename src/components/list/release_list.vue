@@ -55,7 +55,7 @@
         _.forEach(this.list, (item) => {
           const obj = {}
           obj.title = item._serverData.title
-          obj.src = item._serverData.thumbnail
+//          obj.src = item._serverData.thumbnail
           obj.desc = item._serverData.desc
           obj.url = `/detail/${item.id}`
           arr.push(obj)

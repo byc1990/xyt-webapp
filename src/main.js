@@ -43,7 +43,7 @@ const vueInit = () => {
   Vue.use(LoadingPlugin)
   // Vue.use(MintUI)
 
-  axios.defaults.baseURL = 'https://api.github.com'
+  // axios.defaults.baseURL = 'https://api.github.com'
   // axios.defaults.baseURL = globalArg.apiUrl
   // axios.defaults.headers.common['authorization'] = window.userToken || ''
   const router = new VueRouter({
@@ -64,12 +64,6 @@ const vueInit = () => {
   router.afterEach(() => {
     store.state.isSideActive = false
   })
-  if (!AV.User.current()) {
-    router.push('/login')
-  } else {
-    router.push('/job_list')
-    store.dispatch('currentUserInfo', AV.User.current())
-  }
 }
 
 vueInit()

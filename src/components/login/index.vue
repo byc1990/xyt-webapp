@@ -41,6 +41,12 @@
           this.$router.push('/job_list')
         }, (error) => {
           console.log(JSON.stringify(error))
+//          if (error.code === 210) {
+          this.$vux.toast.show({
+            text: error.message,
+            type: 'warn',
+          })
+//          }
         })
       },
     },

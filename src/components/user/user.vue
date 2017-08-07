@@ -1,25 +1,28 @@
 <template>
   <div>
-    <flexbox class="p-t-20 p-b-20">
-      <flexbox-item :span="4">图片</flexbox-item>
-      <flexbox-item :span="7">
-        <div>
-          <div>姓名: {{currentUser.name}}</div>
-          <div>电话: {{currentUser.mobilePhoneNumber}}</div>
-          <router-link to="/edit_resume">完善个人信息</router-link>
-        </div>
-      </flexbox-item>
-    </flexbox>
-    <group>
-      <cell :title="'发布信息'" link="/add_job"></cell>
-      <cell :title="'我的发布'" link="/release_list"></cell>
-      <cell :title="'我的申请'" link="/apply_list"></cell>
-      <cell :title="'分享'" @click.native="showActionsheet" link="/user"></cell>
-    </group>
-    <div class="p-l-20 p-r-20">
-      <x-button type="primary" class="m-t-20 " @click.native="logout">退出登录</x-button>
+    <div v-if="isLogined">
+      <flexbox class="p-t-20 p-b-20">
+        <flexbox-item :span="2"></flexbox-item>
+        <flexbox-item :span="10">
+          <div>
+            <div>姓名: {{currentUser.name}}</div>
+            <div>电话: {{currentUser.mobilePhoneNumber}}</div>
+            <router-link to="/edit_resume">完善个人信息</router-link>
+          </div>
+        </flexbox-item>
+      </flexbox>
+      <group>
+        <!--<cell :title="'发布信息'" link="/add_job"></cell>-->
+        <cell :title="'我的发布'" link="/release_list"></cell>
+        <!--<cell :title="'我的申请'" link="/apply_list"></cell>-->
+        <!--<cell :title="'分享'" @click.native="showActionsheet" link="/user"></cell>-->
+      </group>
+      <div class="p-l-20 p-r-20">
+        <x-button type="primary" class="m-t-20 " @click.native="logout">退出登录</x-button>
+      </div>
+      <actionsheet v-model="show4" :menus="menus1" :close-on-clicking-mask="false" show-cancel></actionsheet>
     </div>
-    <actionsheet v-model="show4" :menus="menus1" :close-on-clicking-mask="false" show-cancel></actionsheet>
+    <router-link v-else to="/login">登陆后查看</router-link>
   </div>
 </template>
 <script type="text/babel">
@@ -50,6 +53,11 @@
         ],
       }
     },
+    computed: {
+      isLogined() {
+        return !!AV.User.current()
+      },
+    },
     methods: {
       logout() {
         AV.User.logOut()
@@ -74,10 +82,23 @@
       },
     },
     created() {
+      const that = this
       const currentUser = AV.User.current()
-      console.log(currentUser)
-      this.currentUser.name = currentUser.attributes.nickName
-      this.currentUser.mobilePhoneNumber = currentUser.attributes.mobilePhoneNumber
+      if (currentUser) {
+        console.log(currentUser)
+        this.currentUser.name = currentUser.attributes.nickName
+        this.currentUser.mobilePhoneNumber = currentUser.attributes.mobilePhoneNumber
+      } else {
+        this.$vux.alert.show({
+          title: '提示',
+          content: '登陆后继续操作',
+          onShow() {
+          },
+          onHide() {
+            that.$router.push('/login')
+          },
+        })
+      }
     },
     components: {
       XButton,
