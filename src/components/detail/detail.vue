@@ -22,10 +22,10 @@
         <div class='flex1'>详细地址: </div>
         <div class='flex2'>{{detail.detailAddress}}</div>
       </div>
-      <div class='display-flex'>
-        <div class='flex1'>gps 位置: </div>
-        <div class='flex2'>lat: {{detail.latitude}}/lon:{{detail.longitude}}</div>
-      </div>
+      <!--<div class='display-flex'>-->
+        <!--<div class='flex1'>gps 位置: </div>-->
+        <!--<div class='flex2'>lat: {{detail.latitude}}/lon:{{detail.longitude}}</div>-->
+      <!--</div>-->
       <!--<div class='display-flex'>-->
         <!--<div class='flex1'>距离: </div>-->
         <!--<div class='flex2'>{{detail.distance}}KM</div>-->
@@ -131,6 +131,9 @@
       },
     },
     created() {
+      this.$vux.loading.show({
+        text: '加载中...',
+      })
 //      const userId = AV.User.current().id
       this.jobId = this.$route.params.id
 //      new AV.Query('_User').get(userId).then((res) => {
@@ -145,10 +148,15 @@
           Object.assign(res, res._serverData)
           this.detail = res
           this.detail.createdAt = Moment(this.detail.createdAt).format('YYYY-MM-DD HH:mm')
-          console.log(this.detail.imgs)
+          this.$vux.loading.hide()
         /* eslint-enable */
         })
-        .catch(console.error)
+        .catch((error) => {
+          this.$vux.toast.show({
+            text: error.message,
+            type: 'warn',
+          })
+        })
       this.$vux.loading.hide()
     },
     components: {
