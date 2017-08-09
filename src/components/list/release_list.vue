@@ -11,7 +11,7 @@
     <!--width="60"-->
     <!--height="60">-->
     <!--</mt-cell>-->
-    <panel header="列表" :list="list" type="1"></panel>
+    <panel header="" :list="list" type="1"></panel>
   </div>
 </template>
 <script type="text/babel">

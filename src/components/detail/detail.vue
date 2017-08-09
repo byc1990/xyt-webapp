@@ -3,7 +3,7 @@
     <!--<img :src="detail.thumbnail" alt="">-->
     <div class='p-10'>
       <div class='display-flex'>
-        <div class='flex1'>标题: </div>
+        <div class='flex1 b'>标题: </div>
         <div class='flex2'>{{detail.title}}</div>
       </div>
       <!--<div class='display-flex'>-->
@@ -11,15 +11,15 @@
         <!--<div class='flex2'>{{detail.company}}</div>-->
       <!--</div>-->
       <div class='display-flex'>
-        <div class='flex1'>薪资待遇: </div>
+        <div class='flex1 b'>薪资待遇: </div>
         <div class='flex2'>{{detail.salary}}</div>
       </div>
       <div class='display-flex'>
-        <div class='flex1'>区域: </div>
+        <div class='flex1 b'>区域: </div>
         <div class='flex2'>{{getAdderssText([detail.province, detail.city])}}</div>
       </div>
       <div class='display-flex'>
-        <div class='flex1'>详细地址: </div>
+        <div class='flex1 b'>详细地址: </div>
         <div class='flex2'>{{detail.detailAddress}}</div>
       </div>
       <!--<div class='display-flex'>-->
@@ -35,7 +35,7 @@
         <!--<div class='flex2'>{{detail.gender | transformGender}}</div>-->
       <!--</div>-->
       <div class='display-flex'>
-        <div class='flex1'>联系电话: </div>
+        <div class='flex1 b'>联系电话: </div>
         <div class='flex2'>
           <a v-if="isLogined" :href="'tel:' + detail.tel">{{detail.tel}}</a>
           <router-link v-else to="/login">登陆后查看</router-link>
@@ -59,11 +59,11 @@
         <!--<div class='flex2'>{{detail.num}} 人</div>-->
       <!--</div>-->
       <div class='display-flex'>
-        <div class='flex1'>创建人: </div>
+        <div class='flex1 b'>创建人: </div>
         <div class='flex2'>{{detail.nickName}}</div>
       </div>
       <div class='display-flex'>
-        <div class='flex1'>发布时间: </div>
+        <div class='flex1 b'>发布时间: </div>
         <div class='flex2'>{{detail.createdAt}}</div>
       </div>
       <!--<div class='display-flex'>-->
@@ -75,7 +75,7 @@
         <!--<div class='flex2'>{{detail.other_req}}</div>-->
       <!--</div>-->
       <div class='display-flex'>
-        <div class='flex1'>工作说明: </div>
+        <div class='flex1 b'>工作说明: </div>
         <div class='flex2'>{{detail.desc}}</div>
       </div>
     </div>

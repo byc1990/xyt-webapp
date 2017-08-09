@@ -41,7 +41,7 @@
         <!--<load-more tip="loading"></load-more>-->
       <!--</div>-->
     <!--</scroller>-->
-    <panel v-if="list && list.length" header="列表" :list="list" type="1"></panel>
+    <panel v-if="list && list.length" header="" :list="list" type="1"></panel>
     <div v-if="list.length < 1" class="m-t-20 p-l-20">
       所选区域暂无数据
     </div>
@@ -107,7 +107,7 @@
               const obj = {}
               obj.title = item._serverData.title
 //            obj.src = item._serverData.thumbnail
-              obj.desc = item._serverData.desc
+              obj.desc = `薪资待遇: ${item._serverData.salary}; 发布时间: ${item._serverData.createdAt}`
               obj.url = `/detail/${item.id}`
               arr.push(obj)
             })
@@ -165,7 +165,7 @@
             _.forEach(list, (item) => {
               const obj = {}
               obj.title = item._serverData.title
-              obj.desc = item._serverData.desc
+              obj.desc = `薪资待遇: ${item._serverData.salary}; 发布时间: ${item._serverData.createdAt}`
               obj.url = `/detail/${item.id}`
               arr.push(obj)
             })
@@ -210,9 +210,10 @@
           query.find().then((list) => {
             const arr = []
             _.forEach(list, (item) => {
+              console.log(item)
               const obj = {}
               obj.title = item._serverData.title
-              obj.desc = item._serverData.desc
+              obj.desc = `薪资待遇: ${item._serverData.salary}; 发布时间: ${Moment(item.createdAt).format('YYYY-MM-DD HH:mm')}`
               obj.url = `/detail/${item.id}`
               arr.push(obj)
             })
