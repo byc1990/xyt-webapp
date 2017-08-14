@@ -44,6 +44,7 @@
       const query = new AV.Query('JobsTest')
       query.equalTo('createdBy', userId)
       query.equalTo('nickName', nickName)
+      query.descending('createdAt')
       query.find().then((list) => {
         this.list = list
       }, (error) => {
@@ -56,7 +57,7 @@
           const obj = {}
           obj.title = item._serverData.title
 //          obj.src = item._serverData.thumbnail
-          obj.desc = item._serverData.desc
+          obj.desc = `薪资待遇: ${item._serverData.salary ? item._serverData.salary : '面谈'}; 发布时间: ${item.createdAt ? Moment(item.createdAt).format('YYYY-MM-DD HH:mm') : Moment().format('YYYY-MM-DD HH:mm')}`
           obj.url = `/detail/${item.id}`
           arr.push(obj)
         })

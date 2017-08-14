@@ -101,13 +101,14 @@
           })
           const query = new AV.Query('JobsTest')
           query.contains('title', this.keyText)
+          query.descending('createdAt')
           query.find().then((list) => {
             const arr = []
             _.forEach(list, (item) => {
               const obj = {}
               obj.title = item._serverData.title
 //            obj.src = item._serverData.thumbnail
-              obj.desc = `薪资待遇: ${item._serverData.salary}; 发布时间: ${item._serverData.createdAt}`
+              obj.desc = `薪资待遇: ${item._serverData.salary ? item._serverData.salary : '面谈'}; 发布时间: ${item.createdAt ? Moment(item.createdAt).format('YYYY-MM-DD HH:mm') : new Date()}`
               obj.url = `/detail/${item.id}`
               arr.push(obj)
             })
@@ -160,12 +161,13 @@
             type: 'warn',
           })
           const query = new AV.Query('JobsTest')
+          query.descending('createdAt')
           query.find().then((list) => {
             const arr = []
             _.forEach(list, (item) => {
               const obj = {}
               obj.title = item._serverData.title
-              obj.desc = `薪资待遇: ${item._serverData.salary}; 发布时间: ${item._serverData.createdAt}`
+              obj.desc = `薪资待遇: ${item._serverData.salary ? item._serverData.salary : '面谈'}; 发布时间: ${item.createdAt ? Moment(item.createdAt).format('YYYY-MM-DD HH:mm') : new Date()}`
               obj.url = `/detail/${item.id}`
               arr.push(obj)
             })
@@ -207,6 +209,7 @@
           const query = new AV.Query('JobsTest')
           query.equalTo('province', province)
           query.equalTo('city', city)
+          query.descending('createdAt')
           query.find().then((list) => {
             const arr = []
             _.forEach(list, (item) => {
